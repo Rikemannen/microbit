@@ -1,13 +1,36 @@
-let run = false
-input.onButtonPressed(Button.A, function on_button_pressed_a() {
+input.onGesture(Gesture.Shake, function on_gesture_shake() {
     
-    run = !run
-    console.log("Switched, now " + ("" + run))
-})
-basic.forever(function on_forever() {
-    if (run) {
-        led.toggleAll()
+    while (hand == oldhand) {
+        hand = randint(1, 3)
+    }
+    console.log("number: " + ("" + hand))
+    if (hand == 0) {
+        basic.showLeds(`
+            . . . . .
+            . # # # .
+            . # # # .
+            . # # # .
+            . . . . .
+            `)
+    } else if (hand == 1) {
+        basic.showLeds(`
+            . . . # #
+            . # # # #
+            . # # # .
+            # # # # .
+            # # . . .
+            `)
+    } else {
+        basic.showLeds(`
+            # . . . #
+            . # . # .
+            . . # . .
+            # # . # #
+            # # . # #
+            `)
     }
     
-    basic.pause(10)
+    oldhand = hand
 })
+let oldhand = 0
+let hand = 0
